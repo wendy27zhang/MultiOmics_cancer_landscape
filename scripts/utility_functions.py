@@ -57,14 +57,24 @@ def clean_data(X_df, col_na_cut, row_na_cut):
 
 ### read in the raw data indicatated by cancer type and omic_type
 ### This function use clean_data to clean data and imput NA 
+
 def read_data(cancer_type, omic_type):
     # Tumor file
     sample_type = "Tumor"
-    file_tumor = f"../../MultiOmics_cancer_landscape_data/{cancer_type}/Data/{cancer_type}_{omic_type}_gene_abundance_log2_reference_intensity_normalized_{sample_type}.txt"
+
+    if omic_type == "RNAseq":
+        file_tumor = f"../../MultiOmics_cancer_landscape_data/{cancer_type}/Data/{cancer_type}_{omic_type}_gene_RSEM_coding_UQ_1500_log2_{sample_type}.txt"
+    else:
+        file_tumor = f"../../MultiOmics_cancer_landscape_data/{cancer_type}/Data/{cancer_type}_{omic_type}_gene_abundance_log2_reference_intensity_normalized_{sample_type}.txt"
+
 
     # Normal file
     sample_type = "Normal"
-    file_normal = f"../../MultiOmics_cancer_landscape_data/{cancer_type}/Data/{cancer_type}_{omic_type}_gene_abundance_log2_reference_intensity_normalized_{sample_type}.txt"
+    if omic_type == "RNAseq":
+        file_normal = f"../../MultiOmics_cancer_landscape_data/{cancer_type}/Data/{cancer_type}_{omic_type}_gene_RSEM_coding_UQ_1500_log2_{sample_type}.txt"
+    else:
+        file_normal = f"../../MultiOmics_cancer_landscape_data/{cancer_type}/Data/{cancer_type}_{omic_type}_gene_abundance_log2_reference_intensity_normalized_{sample_type}.txt"
+
 
     # Read data
     df_tumor = pd.read_csv(file_tumor, sep="\t")
